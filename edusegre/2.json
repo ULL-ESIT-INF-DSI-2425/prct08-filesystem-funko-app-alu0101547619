@@ -1,0 +1,12 @@
+{
+  "id": 2,
+  "name": "Shadow the Hedgehog",
+  "description": "The ultimate life form",
+  "type": "Pop!",
+  "genre": "Videojuegos",
+  "franchise": "Sonic",
+  "number": 2,
+  "exclusive": true,
+  "specialFeatures": "Tiene anillos dorados en la base",
+  "marketValue": 200
+}
