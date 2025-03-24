@@ -1,4 +1,3 @@
-// src/commands/cli.ts
 import yargs from "yargs";
 import { hideBin } from "yargs/helpers";
 import { FunkoCollection } from "../services/services.js";
@@ -23,7 +22,6 @@ yargs(hideBin(process.argv))
     },
     (argv) => {
       const collection = new FunkoCollection(argv.user as string);
-      // Aquí se hace una conversión a los enumerados según convenga
       const typeValue = argv.type as string;
       const genreValue = argv.genre as string;
       const funko = new Funko(

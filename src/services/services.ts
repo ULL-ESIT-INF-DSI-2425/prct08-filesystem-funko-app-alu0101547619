@@ -11,28 +11,25 @@ export class FunkoCollection {
   constructor(user: string) {
     this.user = user;
     this.dir = path.join(process.cwd(), this.user);
-    // Se comprueba de forma asíncrona si el directorio existe y, si no, se crea.
-    fs.exists(this.dir, (exists) => {
-      if (!exists) {
-        fs.mkdir(this.dir, (err) => {
-          if (err) {
-            console.error(chalk.red(`Error creating directory: ${err.message}`));
+    fs.access(this.dir, fs.constants.F_OK, (err) => {
+      if (err) {
+        fs.mkdir(this.dir, (errMkdir) => {
+          if (errMkdir) {
+            console.error(chalk.red(`Error creating directory: ${errMkdir.message}`));
           }
         });
       }
     });
   }
 
-  // Genera la ruta del fichero JSON para un Funko concreto.
   private getFilePath(id: number): string {
     return path.join(this.dir, `${id}.json`);
   }
 
-  // Añadir un Funko de forma asíncrona usando callbacks.
   public addFunko(funko: Funko): void {
     const filePath = this.getFilePath(funko.id);
-    fs.exists(filePath, (exists) => {
-      if (exists) {
+    fs.access(this.dir, fs.constants.F_OK, (err) => {
+      if (err) {
         console.log(chalk.red(`Funko already exists in ${this.user} collection!`));
       } else {
         fs.writeFile(filePath, JSON.stringify(funko, null, 2), (writeErr) => {
@@ -49,8 +46,8 @@ export class FunkoCollection {
   // Modificar un Funko de forma asíncrona.
   public updateFunko(funko: Funko): void {
     const filePath = this.getFilePath(funko.id);
-    fs.exists(filePath, (exists) => {
-      if (!exists) {
+    fs.access(this.dir, fs.constants.F_OK, (err) => {
+      if (!err) {
         console.log(chalk.red(`Funko not found in ${this.user} collection!`));
       } else {
         fs.writeFile(filePath, JSON.stringify(funko, null, 2), (writeErr) => {
@@ -67,8 +64,8 @@ export class FunkoCollection {
   // Eliminar un Funko de forma asíncrona.
   public removeFunko(id: number): void {
     const filePath = this.getFilePath(id);
-    fs.exists(filePath, (exists) => {
-      if (!exists) {
+    fs.access(this.dir, fs.constants.F_OK, (err) => {
+      if (!err) {
         console.log(chalk.red(`Funko not found in ${this.user} collection!`));
       } else {
         fs.unlink(filePath, (unlinkErr) => {
@@ -85,8 +82,8 @@ export class FunkoCollection {
   // Leer un Funko concreto de forma asíncrona.
   public readFunko(id: number): void {
     const filePath = this.getFilePath(id);
-    fs.exists(filePath, (exists) => {
-      if (!exists) {
+    fs.access(this.dir, fs.constants.F_OK, (err) => {
+      if (!err) {
         console.log(chalk.red(`Funko not found in ${this.user} collection!`));
       } else {
         fs.readFile(filePath, "utf-8", (readErr, data) => {

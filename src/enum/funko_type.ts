@@ -1,10 +1,8 @@
-// src/models/funko.ts
 export enum FunkoType {
     Pop = "Pop!",
     PopRides = "Pop! Rides",
     VynilSoda = "Vynil Soda",
     VynilGold = "Vynil Gold"
-    // Puedes agregar más tipos
   }
   
   export enum FunkoGenre {
@@ -14,7 +12,6 @@ export enum FunkoType {
     Deportes = "Deportes",
     Musica = "Música",
     Anime = "Ánime"
-    // Puedes agregar más géneros
   }
   
   export class Funko {
